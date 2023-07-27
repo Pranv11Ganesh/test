@@ -31,21 +31,7 @@ on:
     types: [on-greeting]
 jobs:
   greet:
-    runs-on: ubuntu-20.04
+    runs-on: macos-latest
     steps:
-      - run: echo "event name is:" ${{ github.event_name }}
-      - run: echo "event type is:" ${{ github.event.action }}
+      - run: echo "Job done." 
 
-      - name: Set merged variables
-        run: |
-          echo "GREETING=${{ github.event.inputs.greeting || github.event.client_payload.greeting || env.greeting }}" >> $GITHUB_ENV
-          echo "N=${{ github.event.inputs.n || github.event.client_payload.n || env.n }}" >> $GITHUB_ENV
-
-      - name: Print workflow_dispatch inputs
-        run: echo "${{ toJson(github.event.inputs) }}"
-
-      - name: Print repository_dispatch inputs
-        run: echo "${{ toJson(github.event.client_payload) }}"
-
-      - name: Greeting
-        run: echo "$GREETING to you $N times"
